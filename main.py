@@ -15,4 +15,31 @@ print(dataf.head(10))
 
 plt.subplot(221)
 plt.scatter(dataf['petal_length'], dataf['species'], s = 10, c = 'green', marker = 'o')
+
+plt.subplot(222)
+plt.scatter(dataf['sepal_length'], dataf['species'], s = 10, c = 'blue', marker = 'o')
+
+plt.subplot(223)
+plt.scatter(dataf['petal_width'], dataf['species'], s = 10, c = 'red', marker = 'o')
+
+plt.subplot(224)
+plt.scatter(dataf['sepal_width'], dataf['species'], s = 10, c = 'orange', marker = 'o')
 plt.show()
+
+y = dataf['species']
+x = dataf.drop('species', axis = 1)
+
+print(x.head())
+print(y.head())
+
+x_train, x_test, y_train, y_test = train_test_split(x,y, test_size = 0.2, random_state = 1)
+print(x_train.shape)
+print(y_train.shape)
+print(x_test.shape)
+print(y_test.shape)
+
+model = DecisionTreeClassifier(max_depth = 3, random_state = 1)
+model.fit(x_train, y_train)
+
+pred = model.predict(x_test)
+print('Accuracy:', metrics.accuracy_score(pred, y_test))
